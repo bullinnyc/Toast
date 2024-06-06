@@ -51,12 +51,12 @@ public struct ToastStyle {
     ///   - isImageAnimation: Set to `true` for animation of the image.
     public init(
         titleTextColor: Color? = nil,
-        titleTextAlignment: TextAlignment = .leading,
-        titleFont: UIFont = UIFont.seravekMedium(size: 24),
+        titleTextAlignment: TextAlignment? = nil,
+        titleFont: UIFont? = nil,
         titleLineLimit: Int = 1,
         messageTextColor: Color,
         messageTextAlignment: TextAlignment = .leading,
-        messageFont: UIFont = UIFont.seravek(size: 16),
+        messageFont: UIFont = .seravek(size: 16),
         messageLineLimit: Int = 0,
         backgroundColor: Color,
         cornerRadius: CGFloat = 21,
@@ -65,8 +65,8 @@ public struct ToastStyle {
         isImageAnimation: Bool = false
     ) {
         self.titleTextColor = titleTextColor ?? messageTextColor
-        self.titleTextAlignment = titleTextAlignment
-        self.titleFont = titleFont
+        self.titleTextAlignment = titleTextAlignment ?? messageTextAlignment
+        self.titleFont = titleFont ?? messageFont
         self.titleLineLimit = titleLineLimit
         self.messageTextColor = messageTextColor
         self.messageTextAlignment = messageTextAlignment
@@ -92,11 +92,11 @@ extension ToastStyle {
         ToastStyle(
             titleTextColor: RM.day.color,
             titleTextAlignment: .leading,
-            titleFont: UIFont.seravekMedium(size: 24),
+            titleFont: .seravekMedium(size: 24),
             titleLineLimit: 1,
             messageTextColor: RM.day.color,
             messageTextAlignment: .leading,
-            messageFont: UIFont.seravek(size: 16),
+            messageFont: .seravek(size: 16),
             messageLineLimit: 0,
             backgroundColor: RM.space.color.opacity(0.95),
             cornerRadius: 21,
@@ -115,11 +115,11 @@ extension ToastStyle {
         ToastStyle(
             titleTextColor: RM.tomato.color,
             titleTextAlignment: .leading,
-            titleFont: UIFont.seravekMedium(size: 24),
+            titleFont: .seravekMedium(size: 24),
             titleLineLimit: 1,
             messageTextColor: RM.day.color,
             messageTextAlignment: .leading,
-            messageFont: UIFont.seravek(size: 16),
+            messageFont: .seravek(size: 16),
             messageLineLimit: 0,
             backgroundColor: RM.space.color.opacity(0.95),
             cornerRadius: 21,

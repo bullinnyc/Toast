@@ -51,10 +51,7 @@ final class ToastTests: XCTestCase {
         )
         
         // Then
-        XCTAssertTrue(
-            toast.isShowToast,
-            "Toast should be true"
-        )
+        XCTAssertTrue(toast.isShowToast, "Toast should be true.")
         
         XCTAssertEqual(
             toast.toast.title,
@@ -78,7 +75,6 @@ extension ToastTests {
     typealias Sut = Toast
     
     private func makeSUT() -> Sut {
-        let toast = Toast()
-        return toast
+        Toast()
     }
 }
