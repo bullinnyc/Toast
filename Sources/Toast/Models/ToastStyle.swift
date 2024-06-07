@@ -29,7 +29,6 @@ public struct ToastStyle {
     let messageLineLimit: Int
     let backgroundColor: Color
     let cornerRadius: CGFloat
-    let image: UIImage?
     let imageAlignment: ImageAlignment
     let isImageAnimation: Bool
     
@@ -46,7 +45,6 @@ public struct ToastStyle {
     ///   - messageLineLimit: Message line limit.
     ///   - backgroundColor: Toast background color.
     ///   - cornerRadius: Toast corner radius.
-    ///   - image: Image to be displayed.
     ///   - imageAlignment: Image alignment.
     ///   - isImageAnimation: Set to `true` for animation of the image.
     public init(
@@ -60,7 +58,6 @@ public struct ToastStyle {
         messageLineLimit: Int = 0,
         backgroundColor: Color,
         cornerRadius: CGFloat = 21,
-        image: UIImage? = nil,
         imageAlignment: ImageAlignment = .trailing,
         isImageAnimation: Bool = false
     ) {
@@ -74,7 +71,6 @@ public struct ToastStyle {
         self.messageLineLimit = messageLineLimit
         self.backgroundColor = backgroundColor
         self.cornerRadius = cornerRadius
-        self.image = image
         self.imageAlignment = imageAlignment
         self.isImageAnimation = isImageAnimation
     }
@@ -83,12 +79,8 @@ public struct ToastStyle {
 // MARK: - Ext. Toast styles
 
 extension ToastStyle {
-    /// Return specific toast style.
-    ///
-    /// - Parameter image: Image to be displayed.
-    ///
-    /// - Returns: Specific `ToastStyle`.
-    public static func space(image: UIImage? = nil) -> ToastStyle {
+    /// An object that stores specific toast style.
+    public static var space: ToastStyle {
         ToastStyle(
             titleTextColor: RM.day.color,
             titleTextAlignment: .leading,
@@ -100,18 +92,13 @@ extension ToastStyle {
             messageLineLimit: 0,
             backgroundColor: RM.space.color.opacity(0.95),
             cornerRadius: 21,
-            image: image,
             imageAlignment: .trailing,
             isImageAnimation: false
         )
     }
     
-    /// Return specific toast style.
-    ///
-    /// - Parameter image: Image to be displayed.
-    ///
-    /// - Returns: Specific `ToastStyle`.
-    public static func mars(image: UIImage? = nil) -> ToastStyle {
+    /// An object that stores specific toast style.
+    public static var mars: ToastStyle {
         ToastStyle(
             titleTextColor: RM.tomato.color,
             titleTextAlignment: .leading,
@@ -123,7 +110,6 @@ extension ToastStyle {
             messageLineLimit: 0,
             backgroundColor: RM.space.color.opacity(0.95),
             cornerRadius: 21,
-            image: image,
             imageAlignment: .trailing,
             isImageAnimation: false
         )
