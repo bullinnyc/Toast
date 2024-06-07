@@ -2,7 +2,7 @@
 
 [![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
-🍞 Beautiful toast notifications with flexible view settings.
+Beautiful toast notifications with flexible view settings.
 
 ## Screenshots
 
@@ -93,38 +93,9 @@ struct MyView: View {
 You can try other styles or create your own style with extension `ToastStyle`.
 
 ```swift
-.space(image:)
-.mars(image:)
+.space
+.mars
 ```
-
-### Toast parameters
-
-| Property | Type | Description |
-|---|---|---|
-| `title` | `String?` | Title to be displayed (optional) |
-| `message` | `String` | Message to be displayed |
-| `style` | `ToastStyle` | Toast style |
-| `duration` | `TimeInterval` | The total duration of the animations, measured in seconds |
-| `deadline` | `Double` | The toast display deadline, measured in seconds |
-| `completion` | `((_ isShowToast: Bool) -> Void)?` | A block object to be executed when the animation sequence ends (optional) |
-
-### ToastStyle parameters
-
-| Property | Type | Description |
-|---|---|---|
-| `titleTextColor` | `Color?` | Title text color (optional) |
-| `titleTextAlignment` | `TextAlignment` | Title text alignment |
-| `titleFont` | `UIFont` | Title font |
-| `titleLineLimit` | `Int` | Title line limit |
-| `messageTextColor` | `Color` | Message text color |
-| `messageTextAlignment` | `TextAlignment` | Message text alignment |
-| `messageFont` | `UIFont` | Message font |
-| `messageLineLimit` | `Int` | Message line limit |
-| `backgroundColor` | `Color` | Toast background color |
-| `cornerRadius` | `CGFloat` | Toast corner radius |
-| `image` | `UIImage?` | Image to be displayed (optional) |
-| `imageAlignment` | `ImageAlignment` | Image alignment |
-| `isImageAnimation` | `Bool` | Set to `true` for animation of the image |
 
 ## Requirements
 

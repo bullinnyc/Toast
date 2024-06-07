@@ -6,11 +6,12 @@
 //  Copyright © 2024 Dmitry Kononchuk. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct ToastMessage {
     // MARK: - Public Properties
     
     let title: String?
     let message: String
+    let image: UIImage?
 }

@@ -19,7 +19,7 @@ public final class Toast: ObservableObject {
     
     // MARK: - Private Properties
     
-    private(set) var toast = ToastMessage(title: nil, message: "")
+    private(set) var toast: ToastMessage!
     private(set) var style: ToastStyle!
     
     private var duration: TimeInterval!
@@ -47,6 +47,7 @@ public final class Toast: ObservableObject {
     /// - Parameters:
     ///   - title: Title to be displayed.
     ///   - message: Message to be displayed.
+    ///   - image: Image to be displayed.
     ///   - style: Toast style.
     ///   - duration: The total duration of the animations, measured in seconds.
     ///   - deadline: The toast display deadline, measured in seconds.
@@ -54,7 +55,8 @@ public final class Toast: ObservableObject {
     public func show(
         title: String? = nil,
         message: String,
-        style: ToastStyle = ToastStyle.space(),
+        image: UIImage? = nil,
+        style: ToastStyle = .space,
         duration: TimeInterval = 0.3,
         deadline: Double = 4,
         completion: ((_ isShowToast: Bool) -> Void)? = nil
@@ -64,6 +66,7 @@ public final class Toast: ObservableObject {
                 self?.show(
                     title: title,
                     message: message,
+                    image: image,
                     style: style,
                     duration: duration,
                     deadline: deadline,
@@ -81,12 +84,12 @@ public final class Toast: ObservableObject {
         self.duration = duration
         self.completion = completion
         
-        calculateAndSetHeight(title: title, message: message)
+        calculateAndSetHeight(title: title, message: message, image: image)
         
         window?.frame = getFrame(isHiddenToast: true)
         window?.makeKeyAndVisible()
         
-        setToast(title: title, message: message, isShow: true)
+        setToast(title: title, message: message, image: image, isShow: true)
         
         UIView.animate(
             withDuration: duration,
@@ -112,8 +115,7 @@ public final class Toast: ObservableObject {
     public func cancelAllToasts() {
         cancelNextToasts()
         cancelHideTask()
-        setToast(title: nil, message: "", isShow: false)
-        completion?(isShowToast)
+        setToast(title: nil, message: "", image: nil, isShow: false)
         window = nil
     }
     
@@ -152,7 +154,7 @@ public final class Toast: ObservableObject {
         ) { [weak self] _ in
             guard let self = self else { return }
             
-            self.setToast(title: nil, message: "", isShow: false)
+            self.setToast(title: nil, message: "", image: nil, isShow: false)
             self.completion?(self.isShowToast)
             
             self.window = nil
@@ -164,7 +166,12 @@ public final class Toast: ObservableObject {
         guard isShowToast else { return }
         
         if isFinishTransition {
-            calculateAndSetHeight(title: toast.title, message: toast.message)
+            calculateAndSetHeight(
+                title: toast.title,
+                message: toast.message,
+                image: toast.image
+            )
+            
             window?.isHidden = false
             
             UIView.animate(
@@ -180,12 +187,17 @@ public final class Toast: ObservableObject {
         }
     }
     
-    private func calculateAndSetHeight(title: String?, message: String) {
+    private func calculateAndSetHeight(
+        title: String?,
+        message: String,
+        image: UIImage?
+    ) {
         let spyText = "X"
         let verticalSpacing = title == nil ? .zero : ToastView.verticalSpacing
         
         let titleHeight = getTextHeight(
             with: title ?? title == "" ? spyText : title ?? "",
+            image: image,
             lineLimit: style.titleLineLimit,
             alignment: style.titleTextAlignment.toHorizontalNSTextAlignment,
             font: style.titleFont
@@ -193,6 +205,7 @@ public final class Toast: ObservableObject {
         
         let messageHeight = getTextHeight(
             with: message.isEmpty ? spyText : message,
+            image: image,
             lineLimit: style.messageLineLimit,
             alignment: style.messageTextAlignment.toHorizontalNSTextAlignment,
             font: style.messageFont
@@ -200,7 +213,8 @@ public final class Toast: ObservableObject {
         
         let modifyMessageHeight = modifyMessageHeight(
             messageHeight,
-            spyText: spyText
+            spyText: spyText,
+            image: image
         ) ?? messageHeight
         
         self.titleHeight = titleHeight
@@ -212,12 +226,14 @@ public final class Toast: ObservableObject {
     
     private func modifyMessageHeight(
         _ messageHeight: CGFloat,
-        spyText: String
+        spyText: String,
+        image: UIImage?
     ) -> CGFloat? {
-        guard style.image != nil else { return nil }
+        guard image != nil else { return nil }
         
         let spyTextHeight = getTextHeight(
             with: spyText,
+            image: image,
             lineLimit: style.messageLineLimit,
             alignment: style.messageTextAlignment.toHorizontalNSTextAlignment,
             font: style.messageFont
@@ -233,13 +249,14 @@ public final class Toast: ObservableObject {
     
     private func getTextHeight(
         with text: String,
+        image: UIImage?,
         lineLimit: Int,
         alignment: NSTextAlignment,
         font: UIFont
     ) -> CGFloat {
         let screenWidth = UIWindow.screenSize.width
         
-        let width = style.image == nil
+        let width = image == nil
             ? screenWidth - ToastView.horizontalPadding * 2
             : screenWidth - ToastView.horizontalPadding - ToastView.sidePadding
         
@@ -266,8 +283,13 @@ public final class Toast: ObservableObject {
         )
     }
     
-    private func setToast(title: String?, message: String, isShow: Bool) {
-        toast = ToastMessage(title: title, message: message)
+    private func setToast(
+        title: String?,
+        message: String,
+        image: UIImage?,
+        isShow: Bool
+    ) {
+        toast = ToastMessage(title: title, message: message, image: image)
         isShowToast = isShow
     }
     

@@ -27,13 +27,14 @@ final class ToastTests: XCTestCase {
     func testShow() {
         // Given
         let toast: Toast = sut
-        let title = "Title"
-        let message = "Message"
-        let style: ToastStyle = .space()
+        let title = "Foo"
+        let message = "Bar"
+        let image = RM.image("mars")
+        let style: ToastStyle = .space
         let duration: TimeInterval = 0.3
         let deadline: Double = 4
         
-        var completionCalled = false
+        var isShowToastCompletionCalled = false
         
         // When
         let expectation = XCTestExpectation(description: "Show toast")
@@ -41,20 +42,18 @@ final class ToastTests: XCTestCase {
         toast.show(
             title: title,
             message: message,
+            image: image,
             style: style,
             duration: duration,
             deadline: deadline,
             completion: { isShowToast in
-                completionCalled = isShowToast
+                isShowToastCompletionCalled = isShowToast
                 expectation.fulfill()
             }
         )
         
         // Then
-        XCTAssertTrue(
-            toast.isShowToast,
-            "Toast should be true"
-        )
+        XCTAssertTrue(toast.isShowToast, "Toast should be true.")
         
         XCTAssertEqual(
             toast.toast.title,
@@ -68,9 +67,18 @@ final class ToastTests: XCTestCase {
             "Toast message should be equal."
         )
         
+        XCTAssertEqual(
+            toast.toast.image,
+            image,
+            "Toast image should be equal."
+        )
+        
         wait(for: [expectation], timeout: 1)
         
-        XCTAssertTrue(completionCalled, "Completion should be true.")
+        XCTAssertTrue(
+            isShowToastCompletionCalled,
+            "Completion called should be true."
+        )
     }
 }
 
@@ -78,7 +86,6 @@ extension ToastTests {
     typealias Sut = Toast
     
     private func makeSUT() -> Sut {
-        let toast = Toast()
-        return toast
+        Toast()
     }
 }

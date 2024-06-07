@@ -13,7 +13,8 @@ extension UIFont {
     
     /// Returns the font object for standard interface items in the specified size.
     ///
-    /// - Parameter size: The size (in points) to which the font is scaled. This value must be greater than 0.0.
+    /// - Parameter size: The size (in points) to which the font is scaled.
+    /// This value must be greater than 0.0.
     ///
     /// - Returns: A font object of the specified size.
     public static func seravek(size: CGFloat) -> UIFont {
@@ -22,7 +23,8 @@ extension UIFont {
     
     /// Returns the font object for standard interface items in the specified size.
     ///
-    /// - Parameter size: The size (in points) to which the font is scaled. This value must be greater than 0.0.
+    /// - Parameter size: The size (in points) to which the font is scaled.
+    /// This value must be greater than 0.0.
     ///
     /// - Returns: A font object of the specified size.
     public static func seravekMedium(size: CGFloat) -> UIFont {

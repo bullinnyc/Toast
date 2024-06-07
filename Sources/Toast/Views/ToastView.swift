@@ -96,14 +96,14 @@ struct ToastView: View {
                 )
                 .padding(
                     isImageOnRight ? .trailing : .leading,
-                    toast.style.image == nil
+                    toast.toast.image == nil
                         ? Self.horizontalPadding
                         : Self.sidePadding
                 )
                 .padding(.leading, Self.safeAreaInsetsLeft)
                 .padding(.trailing, Self.safeAreaInsetsRight)
                 
-                if let image = toast.style.image {
+                if let image = toast.toast.image {
                     self.image(image, size: geometry.size)
                         .onAppear {
                             isBounce = toast.style.isImageAnimation
@@ -233,7 +233,8 @@ extension ToastView {
                 toast.show(
                     title: "MARS",
                     message: DataManager.singleLineExampleText,
-                    style: .mars(image: RM.image("mars")),
+                    image: RM.image("mars"),
+                    style: .mars,
                     deadline: 0
                 ) { isShowToast in
                     print(isShowToast)
@@ -259,11 +260,11 @@ extension ToastView {
             action: {
                 toast.show(
                     message: DataManager.singleLineExampleText,
+                    image: RM.image("mars"),
                     style: ToastStyle(
                         messageTextColor: RM.day.color,
                         messageLineLimit: 1,
                         backgroundColor: RM.space.color.opacity(0.95),
-                        image: RM.image("mars"),
                         imageAlignment: .trailing,
                         isImageAnimation: true
                     )

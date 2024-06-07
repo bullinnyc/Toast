@@ -35,7 +35,7 @@ struct ContentView: View {
                     toast.show(
                         title: "MARS",
                         message: singleLineExampleText,
-                        style: .mars()
+                        style: .mars
                     ) { isShowToast in
                         print(isShowToast)
                     }
