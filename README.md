@@ -41,20 +41,18 @@ struct MyView: View {
     @EnvironmentObject private var toast: Toast
     
     var body: some View {
-        VStack {
-            Button(
-                "Show toast",
-                action: {
-                    // Show toast.
-                    toast.show(
-                        title: "Some title",
-                        message: "Some message"
-                    ) { isShowToast in
-                        print(isShowToast)
-                    }
+        Button(
+            "Show toast",
+            action: {
+                // Show toast.
+                toast.show(
+                    title: "Some title",
+                    message: "Some message"
+                ) { isShowToast in
+                    print(isShowToast)
                 }
-            )
-        }
+            }
+        )
     }
 }
 
