@@ -87,6 +87,7 @@ struct MyView: View {
 ```
 
 ### Set the style of Toast
+
 **Note:** Default `style` is set to `space`.  
 You can try other styles or create your own style with extension `ToastStyle`.
 
@@ -99,6 +100,7 @@ You can try other styles or create your own style with extension `ToastStyle`.
 
 - iOS 15.0 +
 - Xcode 15.0 +
+- [SwiftUI](https://developer.apple.com/xcode/swiftui/)
 
 ## License
 
