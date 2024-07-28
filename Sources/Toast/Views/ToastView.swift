@@ -63,58 +63,61 @@ struct ToastView: View {
     var body: some View {
         GeometryReader { geometry in
             if isShowToast {
-                Rectangle()
-                    .fill(toast.style.backgroundColor)
-                    .frame(height: toast.toastHeight)
-                
-                VStack(spacing: Self.verticalSpacing) {
-                    if let title = toast.toast.title {
-                        text(
-                            title,
-                            lineLimit: toast.style.titleLineLimit,
-                            font: toast.style.titleFont,
-                            textAlignment: toast.style.titleTextAlignment,
-                            textColor: toast.style.titleTextColor
-                        )
-                        .frame(height: toast.titleHeight)
-                    }
+                ZStack(alignment: .top) {
+                    Rectangle()
+                        .fill(toast.style.backgroundColor)
+                        .frame(height: toast.toastHeight)
                     
-                    text(
-                        toast.toast.message,
-                        lineLimit: toast.style.messageLineLimit,
-                        font: toast.style.messageFont,
-                        textAlignment: toast.style.messageTextAlignment,
-                        textColor: toast.style.messageTextColor
-                    )
-                    .frame(height: toast.messageHeight, alignment: .bottom)
-                }
-                .padding(.top, Self.topPadding)
-                .padding(.bottom, Self.bottomPadding)
-                .padding(
-                    isImageOnRight ? .leading : .trailing,
-                    Self.horizontalPadding
-                )
-                .padding(
-                    isImageOnRight ? .trailing : .leading,
-                    toast.toast.image == nil
-                        ? Self.horizontalPadding
-                        : Self.sidePadding
-                )
-                .padding(.leading, Self.safeAreaInsetsLeft)
-                .padding(.trailing, Self.safeAreaInsetsRight)
-                
-                if let image = toast.toast.image {
-                    self.image(image, size: geometry.size)
-                        .onAppear {
-                            isBounce = toast.style.isImageAnimation
+                    VStack(spacing: Self.verticalSpacing) {
+                        if let title = toast.toast.title {
+                            text(
+                                title,
+                                lineLimit: toast.style.titleLineLimit,
+                                font: toast.style.titleFont,
+                                textAlignment: toast.style.titleTextAlignment,
+                                textColor: toast.style.titleTextColor
+                            )
+                            .frame(height: toast.titleHeight)
                         }
+                        
+                        text(
+                            toast.toast.message,
+                            lineLimit: toast.style.messageLineLimit,
+                            font: toast.style.messageFont,
+                            textAlignment: toast.style.messageTextAlignment,
+                            textColor: toast.style.messageTextColor
+                        )
+                        .frame(height: toast.messageHeight, alignment: .bottom)
+                    }
+                    .padding(.top, Self.topPadding)
+                    .padding(.bottom, Self.bottomPadding)
+                    .padding(
+                        isImageOnRight ? .leading : .trailing,
+                        Self.horizontalPadding
+                    )
+                    .padding(
+                        isImageOnRight ? .trailing : .leading,
+                        toast.toast.image == nil
+                            ? Self.horizontalPadding
+                            : Self.sidePadding
+                    )
+                    .padding(.leading, Self.safeAreaInsetsLeft)
+                    .padding(.trailing, Self.safeAreaInsetsRight)
+                    
+                    if let image = toast.toast.image {
+                        self.image(image, size: geometry.size)
+                            .onAppear {
+                                isBounce = toast.style.isImageAnimation
+                            }
+                    }
                 }
+                .frame(maxHeight: toast.toastHeight, alignment: .top)
+                .roundedCorner(
+                    toast.style.cornerRadius,
+                    corners: [.bottomLeft, .bottomRight]
+                )
             }
         }
-        .roundedCorner(
-            toast.style.cornerRadius,
-            corners: [.bottomLeft, .bottomRight]
-        )
         .ignoresSafeArea()
         .simultaneousGesture(
             TapGesture()

@@ -85,10 +85,7 @@ public final class Toast: ObservableObject {
         self.completion = completion
         
         calculateAndSetHeight(title: title, message: message, image: image)
-        
         window?.frame = getFrame(isHiddenToast: true)
-        window?.makeKeyAndVisible()
-        
         setToast(title: title, message: message, image: image, isShow: true)
         
         UIView.animate(
@@ -138,6 +135,7 @@ public final class Toast: ObservableObject {
         
         let window = UIWindow(windowScene: scene)
         window.rootViewController = hostingController
+        window.makeKeyAndVisible()
         
         self.window = window
     }
