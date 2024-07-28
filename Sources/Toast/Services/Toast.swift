@@ -197,7 +197,8 @@ public final class Toast: ObservableObject {
             with: title ?? title == "" ? spyText : title ?? "",
             image: image,
             lineLimit: style.titleLineLimit,
-            alignment: style.titleTextAlignment.toHorizontalNSTextAlignment,
+            alignment: style.titleTextAlignment.toTextAlignment
+                .toHorizontalNSTextAlignment,
             font: style.titleFont
         )
         
@@ -205,7 +206,8 @@ public final class Toast: ObservableObject {
             with: message.isEmpty ? spyText : message,
             image: image,
             lineLimit: style.messageLineLimit,
-            alignment: style.messageTextAlignment.toHorizontalNSTextAlignment,
+            alignment: style.messageTextAlignment.toTextAlignment
+                .toHorizontalNSTextAlignment,
             font: style.messageFont
         )
         
@@ -233,7 +235,8 @@ public final class Toast: ObservableObject {
             with: spyText,
             image: image,
             lineLimit: style.messageLineLimit,
-            alignment: style.messageTextAlignment.toHorizontalNSTextAlignment,
+            alignment: style.messageTextAlignment.toTextAlignment
+                .toHorizontalNSTextAlignment,
             font: style.messageFont
         )
         

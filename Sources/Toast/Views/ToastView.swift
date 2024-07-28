@@ -65,7 +65,7 @@ struct ToastView: View {
             if isShowToast {
                 ZStack(alignment: .top) {
                     Rectangle()
-                        .fill(toast.style.backgroundColor)
+                        .fill(toast.style.backgroundColor.color)
                         .frame(height: toast.toastHeight)
                     
                     VStack(spacing: Self.verticalSpacing) {
@@ -74,8 +74,9 @@ struct ToastView: View {
                                 title,
                                 lineLimit: toast.style.titleLineLimit,
                                 font: toast.style.titleFont,
-                                textAlignment: toast.style.titleTextAlignment,
-                                textColor: toast.style.titleTextColor
+                                textAlignment: toast.style.titleTextAlignment
+                                    .toTextAlignment,
+                                textColor: toast.style.titleTextColor.color
                             )
                             .frame(height: toast.titleHeight)
                         }
@@ -84,8 +85,9 @@ struct ToastView: View {
                             toast.toast.message,
                             lineLimit: toast.style.messageLineLimit,
                             font: toast.style.messageFont,
-                            textAlignment: toast.style.messageTextAlignment,
-                            textColor: toast.style.messageTextColor
+                            textAlignment: toast.style.messageTextAlignment
+                                .toTextAlignment,
+                            textColor: toast.style.messageTextColor.color
                         )
                         .frame(height: toast.messageHeight, alignment: .bottom)
                     }
@@ -265,9 +267,9 @@ extension ToastView {
                     message: DataManager.singleLineExampleText,
                     image: RM.image("mars"),
                     style: ToastStyle(
-                        messageTextColor: RM.day.color,
+                        messageTextColor: RM.day,
                         messageLineLimit: 1,
-                        backgroundColor: RM.space.color.opacity(0.95),
+                        backgroundColor: RM.space.withAlphaComponent(0.95),
                         imageAlignment: .trailing,
                         isImageAnimation: true
                     )
