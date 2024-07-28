@@ -13,23 +13,39 @@ public struct ToastStyle {
     // MARK: - Public Enums
     
     /// An alignment position for image along the horizontal axis.
-    public enum ImageAlignment {
+    public enum ToastImageAlignment {
         case leading, trailing
+    }
+    
+    /// An alignment position for text along the horizontal axis.
+    public enum ToastTextAlignment {
+        case leading, center, trailing
+        
+        var toTextAlignment: TextAlignment {
+            switch self {
+            case .leading:
+                .leading
+            case .center:
+                .center
+            case .trailing:
+                .trailing
+            }
+        }
     }
     
     // MARK: - Public Properties
     
-    let titleTextColor: Color
-    let titleTextAlignment: TextAlignment
+    let titleTextColor: UIColor
+    let titleTextAlignment: ToastTextAlignment
     let titleFont: UIFont
     let titleLineLimit: Int
-    let messageTextColor: Color
-    let messageTextAlignment: TextAlignment
+    let messageTextColor: UIColor
+    let messageTextAlignment: ToastTextAlignment
     let messageFont: UIFont
     let messageLineLimit: Int
-    let backgroundColor: Color
+    let backgroundColor: UIColor
     let cornerRadius: CGFloat
-    let imageAlignment: ImageAlignment
+    let imageAlignment: ToastImageAlignment
     let isImageAnimation: Bool
     
     // MARK: - Initializers
@@ -48,17 +64,17 @@ public struct ToastStyle {
     ///   - imageAlignment: Image alignment.
     ///   - isImageAnimation: Set to `true` for animation of the image.
     public init(
-        titleTextColor: Color? = nil,
-        titleTextAlignment: TextAlignment? = nil,
+        titleTextColor: UIColor? = nil,
+        titleTextAlignment: ToastTextAlignment? = nil,
         titleFont: UIFont? = nil,
         titleLineLimit: Int = 1,
-        messageTextColor: Color,
-        messageTextAlignment: TextAlignment = .leading,
+        messageTextColor: UIColor,
+        messageTextAlignment: ToastTextAlignment = .leading,
         messageFont: UIFont = .seravek(size: 16),
         messageLineLimit: Int = 0,
-        backgroundColor: Color,
+        backgroundColor: UIColor,
         cornerRadius: CGFloat = 21,
-        imageAlignment: ImageAlignment = .trailing,
+        imageAlignment: ToastImageAlignment = .trailing,
         isImageAnimation: Bool = false
     ) {
         self.titleTextColor = titleTextColor ?? messageTextColor
@@ -82,15 +98,15 @@ extension ToastStyle {
     /// An object that stores specific toast style.
     public static var space: ToastStyle {
         ToastStyle(
-            titleTextColor: RM.day.color,
+            titleTextColor: RM.day,
             titleTextAlignment: .leading,
             titleFont: .seravekMedium(size: 24),
             titleLineLimit: 1,
-            messageTextColor: RM.day.color,
+            messageTextColor: RM.day,
             messageTextAlignment: .leading,
             messageFont: .seravek(size: 16),
             messageLineLimit: 0,
-            backgroundColor: RM.space.color.opacity(0.95),
+            backgroundColor: RM.space.withAlphaComponent(0.95),
             cornerRadius: 21,
             imageAlignment: .trailing,
             isImageAnimation: false
@@ -100,15 +116,15 @@ extension ToastStyle {
     /// An object that stores specific toast style.
     public static var mars: ToastStyle {
         ToastStyle(
-            titleTextColor: RM.tomato.color,
+            titleTextColor: RM.tomato,
             titleTextAlignment: .leading,
             titleFont: .seravekMedium(size: 24),
             titleLineLimit: 1,
-            messageTextColor: RM.day.color,
+            messageTextColor: RM.day,
             messageTextAlignment: .leading,
             messageFont: .seravek(size: 16),
             messageLineLimit: 0,
-            backgroundColor: RM.space.color.opacity(0.95),
+            backgroundColor: RM.space.withAlphaComponent(0.95),
             cornerRadius: 21,
             imageAlignment: .trailing,
             isImageAnimation: false
